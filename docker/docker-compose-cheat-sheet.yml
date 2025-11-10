@@ -1,0 +1,48 @@
+# Services (Containers)
+services:
+  mongodb-container:
+    image: 'mongo'
+    volumes:
+      - ts-docker-db:/data/db # Named volume
+    ports:
+      - '27018:27017'
+    env_file:
+      - ./docker-with-typescript-backend/.env
+
+  ts-docker-backend-container:
+    build:
+      context: ./docker-with-typescript-backend
+      dockerfile: Dockerfile
+
+    ports:
+      - '5000:5000'
+
+    volumes:
+      - ts-docker-logs:/app/logs # Named volume
+      - ./docker-with-typescript-backend:/app # Bind mount
+      - /app/node_modules # Anonymous volume (Protect node_modules)
+
+    env_file:
+      - ./docker-with-typescript-backend/.env
+
+    depends_on:
+      - mongodb-container
+
+  ts-docker-frontend-container:
+    build:
+      context: ./docker-with-nextjs-frontend
+      dockerfile: Dockerfile
+
+    ports:
+      - '3000:3000'
+
+    volumes:
+      - ./docker-with-nextjs-frontend:/app # Bind mount
+
+    depends_on:
+      - ts-docker-backend-container
+
+# List Named volumes
+volumes:
+  ts-docker-db:
+  ts-docker-logs:
