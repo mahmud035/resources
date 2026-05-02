@@ -1,0 +1,16 @@
+refactor(books): reorganise repo into structured books/ hierarchy and add SE/architecture titles
+
+- Move flavio-copes-handbooks/* → books/flavio-copes-handbooks/*
+- Move linux-books/* → books/linux-mastery/*
+- Move database-design/designing-data-intensive-applications.pdf → books/software-engineering-and-architecture/
+- Add new SE/architecture titles:
+  - Clean Code
+  - Database Internals
+  - Fundamentals of Software Architecture
+  - Release It!
+  - System Design Interview
+  - The Pragmatic Programmer
+- Add Claude's recommended reading order image for SE/architecture track
+- Remove frontend-architecture-manifesto.md (content superseded or relocated)
+
+All moves are renames at the Git level — no content loss.
